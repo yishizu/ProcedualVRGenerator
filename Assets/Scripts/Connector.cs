@@ -6,10 +6,24 @@ using UnityEngine;
 public class Connector : MonoBehaviour
 {
     public Vector2 size = Vector2.one * 3f;
+
+    public bool isConnected = false;
+
+    private bool isPlaying;
     // Start is called before the first frame update
+    private void Start()
+    {
+        isPlaying = true;
+    }
+
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.cyan;
+        Gizmos.color = isConnected? Color.green : Color.red;
+        if (!isPlaying)
+        {
+            Gizmos.color = Color.cyan;
+        }
+
         Vector2 halfSize = size*0.5f;
         Vector3 offset = transform.position + transform.up * halfSize.y;
         Gizmos.DrawLine(offset, offset + transform.forward);

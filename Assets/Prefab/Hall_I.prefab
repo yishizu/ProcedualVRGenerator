@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1244421867362069046}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hall_I
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,8 @@ GameObject:
   - component: {fileID: 8831195819626366582}
   - component: {fileID: 6155254323514598876}
   - component: {fileID: 7583588215923888548}
-  m_Layer: 0
+  - component: {fileID: 2867963113970786437}
+  m_Layer: 6
   m_Name: Object_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,6 +117,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2867963113970786437
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6053317708453406666}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2346428509227581198, guid: 77968f4209eb57a48ac5732056dafa41, type: 3}
 --- !u!1001 &4123896475021192558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -123,6 +138,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1244421867362069046}
     m_Modifications:
+    - target: {fileID: 327397338085027880, guid: fb2f1854b2a89de448b1a12903dcc2e7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3455579896716567654, guid: fb2f1854b2a89de448b1a12903dcc2e7,
         type: 3}
       propertyPath: m_RootOrder
@@ -182,6 +202,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Connectors
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455579896716567655, guid: fb2f1854b2a89de448b1a12903dcc2e7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6528100575451040917, guid: fb2f1854b2a89de448b1a12903dcc2e7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb2f1854b2a89de448b1a12903dcc2e7, type: 3}

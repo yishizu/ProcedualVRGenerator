@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8610183541934318065}
   - component: {fileID: 1313954573735412168}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Connector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 3, y: 3}
+  isConnected: 0
 --- !u!1 &3779447595229555772
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,7 +57,8 @@ GameObject:
   - component: {fileID: 1944510764543921536}
   - component: {fileID: 3826129782448893482}
   - component: {fileID: 670102582229047890}
-  m_Layer: 0
+  - component: {fileID: 4133911541104270528}
+  m_Layer: 6
   m_Name: Object_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,6 +130,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4133911541104270528
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3779447595229555772}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2346428509227581198, guid: cf29adc50bc60aa48bbc45dd0c45be33, type: 3}
 --- !u!1 &6109296023591933368
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,7 +154,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2985563941559065932}
   - component: {fileID: 5489681783161159029}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Connector (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,6 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 3, y: 3}
+  isConnected: 0
 --- !u!1 &8825995644511894394
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8158249741230465472}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hall_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9202857220219699702}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Connectors
   m_TagString: Untagged
   m_Icon: {fileID: 0}

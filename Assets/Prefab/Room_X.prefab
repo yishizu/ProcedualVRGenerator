@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8109782012323214277}
   - component: {fileID: 1570108295228134396}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Connector (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 3, y: 3}
+  isConnected: 0
 --- !u!1 &2592062273191095045
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,7 +57,8 @@ GameObject:
   - component: {fileID: 970485363438242489}
   - component: {fileID: 2491253331919055123}
   - component: {fileID: 2217811472903708011}
-  m_Layer: 0
+  - component: {fileID: 608093071778560890}
+  m_Layer: 6
   m_Name: Object_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,6 +130,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &608093071778560890
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2592062273191095045}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2346428509227581198, guid: b686990c2692a4f4b9b8b19208ae4670, type: 3}
 --- !u!1 &2761406625299492734
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +153,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2761406625299492735}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Connectors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +189,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5566408559685155410}
   - component: {fileID: 2917846569618053739}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Connector (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,6 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 3, y: 3}
+  isConnected: 0
 --- !u!1 &5998420632011736972
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3357685327402602360}
   - component: {fileID: 5465535871481065281}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Connector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,6 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 3, y: 3}
+  isConnected: 0
 --- !u!1 &7923992499535035459
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +280,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7402930002415937273}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Room_X
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1026802645350643983}
   - component: {fileID: 7745753177841555766}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Connector (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,3 +349,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 3, y: 3}
+  isConnected: 0

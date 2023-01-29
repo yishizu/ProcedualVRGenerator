@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 3748285742817495339}
   - component: {fileID: 2009160657327663745}
   - component: {fileID: 2861037580840443641}
-  m_Layer: 0
+  - component: {fileID: 9099372927333125991}
+  m_Layer: 6
   m_Name: Object_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,6 +84,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &9099372927333125991
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912789226353633431}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2346428509227581198, guid: be99713a361c2e845b2039fb13ddb8f2, type: 3}
 --- !u!1 &4097176079522293881
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5006411949565010061}
   - component: {fileID: 2322669719150182580}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Connector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 3, y: 3}
+  isConnected: 0
 --- !u!1 &5598186089969516683
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +153,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5598186089969516682}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Connectors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6903790426531751275}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Room_T
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1975118581912362032}
   - component: {fileID: 9090684122816314377}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Connector (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,6 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 3, y: 3}
+  isConnected: 0
 --- !u!1 &8555832206842914158
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8555832206842914159}
   - component: {fileID: 8555832206842914156}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Connector (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,3 +302,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 3, y: 3}
+  isConnected: 0
