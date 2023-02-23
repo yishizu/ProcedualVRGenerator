@@ -6,42 +6,34 @@ using DG.Tweening;
 public class SlideDoor : MonoBehaviour,IDoor
 {
     private bool isOpening = false;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
-    public IEnumerable OpenDoor()
+    public IEnumerator  OpenDoor()
     {
         if (!isOpening)
         {
-            transform.DOLocalMoveX(4f, 1f).OnStart(() => { isOpening = true; }).OnComplete(() =>
+            transform.DOLocalMoveX(1f, 0.2f).OnStart(() => { isOpening = true; }).OnComplete(() =>
             {
-                isOpening = false;
-                
                
+                
             });
-            yield return CloseDoor();
         }
+        yield return new WaitForSeconds(.2f);
     }
 
-    public IEnumerable CloseDoor()
+    public IEnumerator  CloseDoor()
     {
-        yield return new WaitForSeconds(2f);
-        transform.DOLocalMoveX(0f, 1f);
-        
+        yield return new WaitForSeconds(.2f);
+        if (isOpening)
+        {
+            transform.DOLocalMoveX(0f, 0.2f);
+            isOpening = false;
+        }
+
+
     }
 
     public void ToggleDoor()
     {
-        
+        isOpening = true;
     }
 }

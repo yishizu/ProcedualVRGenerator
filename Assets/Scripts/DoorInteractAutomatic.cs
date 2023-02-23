@@ -19,16 +19,27 @@ public class DoorInteractAutomatic : MonoBehaviour
 
         Debug.Log("hit");
         if (other.GetComponent<CapsuleCollider>() != null)
-        {
-            door.OpenDoor();
+        { 
+            StartCoroutine(door.OpenDoor());
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        Debug.Log("hit");
+        if (other.GetComponent<CapsuleCollider>() != null)
+        {
+            door.ToggleDoor();
+        }
+    }
+    
+
     private void OnTriggerExit(Collider other)
     {
         Debug.Log("hit");
         if (other.GetComponent<CapsuleCollider>() != null)
         {
-            door.CloseDoor();
+            StartCoroutine(door.CloseDoor());
         }
     }
 }

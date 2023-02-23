@@ -9,13 +9,13 @@ public class DoorSetActive : MonoBehaviour, IDoor
 
 
     private bool isOpen = false;
-    public IEnumerable OpenDoor()
+    public IEnumerator  OpenDoor()
     {
        gameObject.SetActive(false);
        yield return null;
     }
 
-    public IEnumerable CloseDoor()
+    public IEnumerator  CloseDoor()
     {
         gameObject.SetActive(true);
         yield return null;

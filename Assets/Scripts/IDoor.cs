@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IDoor
 {
-    IEnumerable  OpenDoor();
-    IEnumerable  CloseDoor();
+    IEnumerator  OpenDoor();
+    IEnumerator  CloseDoor();
     void ToggleDoor();
 }
