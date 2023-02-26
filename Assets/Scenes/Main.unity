@@ -384,7 +384,9 @@ MonoBehaviour:
   - {fileID: 9164905646737150532, guid: 1bcdc10031723eb4e820a3edb281a491, type: 3}
   - {fileID: 1042542013955313198, guid: 27fbe07c6a696a642b977241f0d3c3b2, type: 3}
   doorPrefabs:
+  - {fileID: 6400645228049086400, guid: dc04cd9242056ce42aba70b6cda0d833, type: 3}
   - {fileID: 6400645228049086400, guid: e25c9ecb20271c7479b9d8ec019d4a5f, type: 3}
+  - {fileID: 6400645228049086400, guid: 3c7e08d7547690445920475d5dda7d3f, type: 3}
   closedPrefabs:
   - {fileID: 6400645228049086400, guid: e2e0d00e1699e774380bf64322f9a842, type: 3}
   reloadKey: 8
