@@ -6,13 +6,22 @@ using UnityEngine;
 [Serializable]
 public class Cell
 {
-    public Transform cell;
+    public GameObject cell;
     public Transform origin;
-    public Connector connector;
+    public Connector[] connectors;
+    public Connector selectedConnector;
+    public int index;
 
-    public Cell(Transform _cell, Transform _origin)
+    public Cell(GameObject _cell, Transform _origin, Connector[] _connectors, int _index)
     {
         cell = _cell;
         origin = _origin;
+        connectors = _connectors;
+        index = _index;
+    }
+
+    public void Reset()
+    {
+        selectedConnector = null;
     }
 }

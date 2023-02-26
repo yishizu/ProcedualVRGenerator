@@ -9,25 +9,23 @@ public class PlayerController : MonoBehaviour
 	private float   rotY,
 					rotX,
 					sensitivity = 10.0f;
-	
-	// Speed variables
-	private float   speed = 10f,
-					speedHalved = 7.5f,
-					speedOrigin = 10f;
-	
-	// Jump!
+
+	private float speed = 10f;
+					
 	private float distToGround;
+	private Rigidbody rd;
+
 	void Start()
 	{
-		anim = GetComponent<CharacterAnimation>(); 
+		anim = GetComponent<CharacterAnimation>();
+		rd = GetComponent<Rigidbody>();
 	}
     
     void FixedUpdate ()
     {
-        float horizontal = Input.GetAxis("Horizontal"); 
-        float vertical = Input.GetAxis("Vertical"); 
+        
         MouseLook(); 
-        PlayerMove(horizontal,vertical); 
+        PlayerMove(); 
         Jump(); 
     }
     private void MouseLook()
@@ -39,28 +37,24 @@ public class PlayerController : MonoBehaviour
 		Camera.main.transform.localEulerAngles = new Vector3(-rotY,0,0); 
 	}
 	
-	private void PlayerMove(float h, float v)
+	private void PlayerMove()
 	{
-		if (h != 0f || v != 0f) // If horizontal or vertical are pressed then continue
+		float horizontal = Input.GetAxis("Horizontal"); 
+		float vertical = Input.GetAxis("Vertical"); 
+		
+		if (horizontal != 0f || vertical != 0f) // If horizontal or vertical are pressed then continue
 		{
-			if(h != 0f && v != 0f) // If horizontal AND vertical are pressed then continue
-			{
-				speed = speedHalved; // Modify the speed to adjust for moving on an angle
-			}
-			else // If only horizontal OR vertical are pressed individually then continue
-			{
-				speed = speedOrigin; // Keep speed to it's original value
-            }
-            GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + (transform.right * h) * speed * Time.deltaTime); 
-			GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + (transform.forward * v) * speed * Time.deltaTime); 
+			Vector3 movement = transform.forward*vertical + transform.right*horizontal;
+			rd.AddForce (movement * speed);
 			anim._animRun = true;
 		}
 		else 	
 		{
+			rd.velocity = Vector3.zero;
 			anim._animRun = false; 
 		}
 	}
-	
+
 	private void Jump()
 	{
 		if(Input.GetKeyDown(KeyCode.Space)) 
@@ -76,5 +70,6 @@ public class PlayerController : MonoBehaviour
 	{
 		return Physics.Raycast(transform.position, -Vector3.up, GetComponent<Collider>().bounds.extents.y + 0.1f); 
 	}
+	
     
 }

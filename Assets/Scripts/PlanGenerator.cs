@@ -13,39 +13,92 @@ public class PlanGenerator : MonoBehaviour
     [Header("Runtime")] 
     public List<Cell> cells = new List<Cell>();
     public List<Cell> tempCells = new List<Cell>();
+    public List<Connector> connectedConnectors = new List<Connector>();
+    public List<Connector> openConnectors = new List<Connector>();
     [Header("Prefabs")]
     public GameObject[] roomPrefabs;
     public GameObject[] startPrefabs;
+    public GameObject[] doorPrefabs;
+    public GameObject[] closedPrefabs;
     public KeyCode reloadKey = KeyCode.A;
-    private Transform cellFrom, cellTo;
-
-    [SerializeField] private GameObject player;
-    [SerializeField] private GameObject camera;
     
-
+    private Cell cellFrom, cellTo;
+    
     private void Start()
     {
+        GenerateSpace();
+        FindConnectors();
+        CreateClosed();
+        CreateDoor();
+    }
+
+    private void CreateDoor()
+    {
+        foreach (var connector in connectedConnectors)
+        {
+            int index = Random.Range(0, doorPrefabs.Length);
+            GameObject cellObj = createCellGameObject(doorPrefabs, name, index);
+            cellObj.transform.position = connector.transform.position;
+            cellObj.transform.rotation = connector.transform.rotation;
+        }
+    }
+
+    private void CreateClosed()
+    {
+        foreach (var connector in openConnectors)
+        {
+            int index = Random.Range(0, closedPrefabs.Length);
+            GameObject cellObj = createCellGameObject(closedPrefabs, name, index);
+            cellObj.transform.position = connector.transform.position;
+            cellObj.transform.rotation = connector.transform.rotation;
+        }
         
-        
-        cellFrom = CreateInitialCell();
-        cellTo = CreateCell(roomPrefabs, "nextCell").transform;
+    }
+    private void FindConnectors()
+    {
+        foreach (var cell in cells)
+        {
+            var connectors = cell.connectors.Where(c => c.isConnected == false).ToList();
+            openConnectors.AddRange(connectors);
+        }
+
+        for (int i = 0; i < cells.Count; i++)
+        {
+            if (i % 2 == 0)
+            {
+                var connected = cells[i].connectors.Where(c => c.isConnected == true).ToList();
+                connectedConnectors.AddRange(connected);
+            }
+        }
+    }
+
+    private void GenerateSpace()
+    {
+        cellFrom = CreateCell(startPrefabs, "startCell");
+
+        cells.Add(cellFrom);
+        cellTo = CreateCell(roomPrefabs, "nextCell");
         MoveCell(cellFrom, cellTo);
-        CollisionCheck();
-        for (int i = 0; i < 10; i++)
+        IsCollide();
+
+        int count = 0;
+        do
         {
             if (cellTo != null)
             {
                 cellFrom = cellTo;
             }
-            
-            
-            cellTo = CreateCell(roomPrefabs, "cell" + i).transform;
+
+            cellTo = CreateCell(roomPrefabs, "cell" + cells.Count);
             MoveCell(cellFrom, cellTo);
-            Debug.Log(i);
-            CollisionCheck();
-        }
-        
+
+            if (IsCollide())
+            {
+                count++;
+            }
+        } while (cells.Count < 10 && count < 100);
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(reloadKey))
@@ -54,89 +107,90 @@ public class PlanGenerator : MonoBehaviour
         }
     }
 
-    GameObject CreateCell(GameObject[] prefabs, string name)
+   
+    GameObject createCellGameObject(GameObject[] prefabs, string name, int index)
     {
-        int index = Random.Range(0, prefabs.Length);
+        
         GameObject startCell = Instantiate(prefabs[index], Vector3.zero, Quaternion.identity ,transform);
         startCell.name =name;
         float yRot = Mathf.RoundToInt(Random.Range(0, 4)) * 90f;
         startCell.transform.Rotate(0,yRot,0);
         return startCell;
     }
-    Transform CreateInitialCell()
+    
+    Cell CreateCell(GameObject[] prefabs, string name)
     {
-        GameObject startCell = CreateCell(startPrefabs, "startCell");
-        Cell cell = new Cell(startCell.transform, null);
+        int index = Random.Range(0, prefabs.Length);
+        GameObject cellObj = createCellGameObject(prefabs, name, index);
+        Cell cell = new Cell(cellObj, cellObj.transform, cellObj.GetComponentsInChildren<Connector>(),index);
         tempCells.Add(cell);
-        cells.Add(cell);
-        return startCell.transform;
+        return cell;
     }
 
-    Transform CreateNextCell()
-    {
-        
-        var cell =CreateCell(roomPrefabs, "nextCell").transform;
-        return cell.transform;
-    }
-
-    void MoveCell(Transform startCell, Transform nextCell)
+    void MoveCell(Cell startCell, Cell nextCell)
     {
         Transform fromConnector = GetRandomConnector(startCell);
+        //startCell.selectedConnector.isConnected = true;
         if(fromConnector==null){return;}
         Transform toConnector = GetRandomConnector(nextCell);
         if(toConnector==null){return;}
 
         toConnector.SetParent(fromConnector);
-        nextCell.SetParent(toConnector);
+        nextCell.cell.transform.SetParent(toConnector);
         toConnector.localPosition = Vector3.zero;
         toConnector.localRotation = Quaternion.identity;
         toConnector.Rotate(0,180f,0);
-        nextCell.SetParent(transform);
-        toConnector.SetParent(nextCell.Find("Connectors"));
+        nextCell.cell.transform.SetParent(transform);
+        toConnector.SetParent(nextCell.cell.transform.Find("Connectors"));
     }
 
     
 
-    Transform GetRandomConnector(Transform cell)
+    Transform GetRandomConnector(Cell cell)
     {
         if (cell == null) return null;
-        List<Connector> connectors = cell.GetComponentsInChildren<Connector>().Where(c => c.isConnected == false).ToList();
+        List<Connector> connectors = cell.connectors.Where(c => c.isConnected == false).ToList();
         if (connectors.Count > 0)
         {
             int index = Random.Range(0, connectors.Count);
-            connectors[index].isConnected = true;
+            cell.selectedConnector = connectors[index];
             return connectors[index].transform;
         }
         return null;
     }
 
-    void CollisionCheck()
+    bool IsCollide()
     {
-        BoxCollider box = cellTo.GetComponentInChildren<BoxCollider>();
+        BoxCollider box = cellTo.cell.GetComponentInChildren<BoxCollider>();
         if (box == null)
         {
-            box = cellTo.GetComponentInChildren<MeshRenderer>().AddComponent<BoxCollider>();
+            box = cellTo.cell.GetComponentInChildren<MeshRenderer>().AddComponent<BoxCollider>();
             box.isTrigger = true;
         }
 
-        Vector3 offset  = (cellTo.right * box.center.x) + (cellTo.up * box.center.y) + (cellTo.forward * box.center.z);
+        Vector3 offset  = (cellTo.cell.transform.right * box.center.x) + (cellTo.cell.transform.up * box.center.y) + (cellTo.cell.transform.forward * box.center.z);
         Vector3 halfExtents = box.bounds.extents;
         List<Collider> hits = Physics
-            .OverlapBox(cellTo.position + offset, halfExtents, Quaternion.identity, LayerMask.GetMask("Cell")).ToList();
+            .OverlapBox(cellTo.cell.transform.position + offset, halfExtents, Quaternion.identity, LayerMask.GetMask("Cell")).ToList();
         if (hits.Count > 0)
         {
-            if (hits.Exists(x => x.transform.parent.transform != cellFrom && x.transform.parent.transform != cellTo))
+            if (hits.Exists(x => x.transform.parent.transform != cellFrom.cell.transform && x.transform.parent.transform != cellTo.cell.transform))
             {
-                Debug.Log("HIT:" + hits.Count);
-                Debug.Log(hits[0].transform.parent.name);
-                DestroyImmediate(cellTo.gameObject);
+                DestroyImmediate(cellTo.cell);
+                
                 cellTo = null;
+                return true;
+            }
+            else
+            {
+                cellFrom.selectedConnector.isConnected = true;
+                cellTo.selectedConnector.isConnected = true;
+                cells.Add(cellTo);
+                return false;
             }
             
         }
-        else
-        {
-            
-        }
+        return false;
     }
+    
 }
