@@ -23,10 +23,10 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 1.15
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 3f01f1060c2e0314bbabe978be202856, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: c03ff7deeccb77a4b9873baffdb79d93, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -203,7 +203,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -371,21 +371,13 @@ MonoBehaviour:
   connectedConnectors: []
   openConnectors: []
   roomPrefabs:
-  - {fileID: 9164905646737150532, guid: 1bcdc10031723eb4e820a3edb281a491, type: 3}
-  - {fileID: 1042542013955313198, guid: 27fbe07c6a696a642b977241f0d3c3b2, type: 3}
-  - {fileID: 6090239420158099409, guid: 86c626ca115304f408cf27ffa9fe0ff1, type: 3}
-  - {fileID: 7923992499535035459, guid: 7989b014ebb3f104cb8f0211db57ef1b, type: 3}
-  - {fileID: 8825995644511894394, guid: e8b0051f8920cdc4ba67f0cfb35deadb, type: 3}
-  - {fileID: 5949546168200259809, guid: a788a452aedde164496c4585bd6d5191, type: 3}
-  - {fileID: 2169878624080603139, guid: de17354bca4a9624c880193798a362dd, type: 3}
-  - {fileID: 2048448785623827962, guid: f029e156cec90fb4ca82a74d1761b2fc, type: 3}
+  - {fileID: 679513286865730283, guid: dcd0e99923d52435eaf978a969fcb975, type: 3}
+  - {fileID: 4341687257732446721, guid: 4a418e427f49747f8a95237dcfaac5bb, type: 3}
+  - {fileID: 8653370023607320939, guid: 430f419d08aab410e89ac5271cec1244, type: 3}
+  - {fileID: 9204690680205805692, guid: d3ce78a1ca61d4179acc654ea70122c1, type: 3}
   startPrefabs:
   - {fileID: 9115132925645811897, guid: afab7c4e165520a41b8e4ae497da6420, type: 3}
-  - {fileID: 9164905646737150532, guid: 1bcdc10031723eb4e820a3edb281a491, type: 3}
-  - {fileID: 1042542013955313198, guid: 27fbe07c6a696a642b977241f0d3c3b2, type: 3}
   doorPrefabs:
-  - {fileID: 6400645228049086400, guid: dc04cd9242056ce42aba70b6cda0d833, type: 3}
-  - {fileID: 6400645228049086400, guid: e25c9ecb20271c7479b9d8ec019d4a5f, type: 3}
   - {fileID: 6400645228049086400, guid: 3c7e08d7547690445920475d5dda7d3f, type: 3}
   closedPrefabs:
   - {fileID: 6400645228049086400, guid: e2e0d00e1699e774380bf64322f9a842, type: 3}

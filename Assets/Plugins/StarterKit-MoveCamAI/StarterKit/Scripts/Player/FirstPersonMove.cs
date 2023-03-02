@@ -21,10 +21,10 @@ public class FirstPersonMove : MonoBehaviour {
 	
 	void Start()
 	{
-		anim = GetComponent<CharacterAnimation>(); // Get the animation script
+		anim = GetComponent<CharacterAnimation>(); 
 	}
 	
-	// FixedUpdate is used for physics based movement
+	
 	void FixedUpdate ()
 	{
 		float horizontal = Input.GetAxis("Horizontal"); // set a float to control horizontal input

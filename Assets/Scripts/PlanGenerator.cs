@@ -75,28 +75,41 @@ public class PlanGenerator : MonoBehaviour
     private void GenerateSpace()
     {
         cellFrom = CreateCell(startPrefabs, "startCell");
-
         cells.Add(cellFrom);
         cellTo = CreateCell(roomPrefabs, "nextCell");
         MoveCell(cellFrom, cellTo);
-        IsCollide();
-
         int count = 0;
-        do
+        if (IsCollide())
         {
-            if (cellTo != null)
-            {
-                cellFrom = cellTo;
-            }
+            count++;
+        };
 
-            cellTo = CreateCell(roomPrefabs, "cell" + cells.Count);
-            MoveCell(cellFrom, cellTo);
 
-            if (IsCollide())
+
+        try
+        {
+            do
             {
-                count++;
-            }
-        } while (cells.Count < 10 && count < 100);
+                if (cellTo != null)
+                {
+                    cellFrom = cellTo;
+                }
+
+                cellTo = CreateCell(roomPrefabs, "cell" + cells.Count);
+                MoveCell(cellFrom, cellTo);
+
+                if (IsCollide())
+                {
+                    count++;
+                }
+            } while (cells.Count < 30 && count < 10);
+        }
+        catch
+        {
+            
+        }
+       
+        
     }
 
     private void Update()
@@ -115,6 +128,7 @@ public class PlanGenerator : MonoBehaviour
         startCell.name =name;
         float yRot = Mathf.RoundToInt(Random.Range(0, 4)) * 90f;
         startCell.transform.Rotate(0,yRot,0);
+        startCell.transform.localScale = Vector3.one;
         return startCell;
     }
     
@@ -124,6 +138,7 @@ public class PlanGenerator : MonoBehaviour
         GameObject cellObj = createCellGameObject(prefabs, name, index);
         Cell cell = new Cell(cellObj, cellObj.transform, cellObj.GetComponentsInChildren<Connector>(),index);
         tempCells.Add(cell);
+        cell.AddBoxCollider();
         return cell;
     }
 
@@ -134,7 +149,8 @@ public class PlanGenerator : MonoBehaviour
         if(fromConnector==null){return;}
         Transform toConnector = GetRandomConnector(nextCell);
         if(toConnector==null){return;}
-
+        startCell.selectedConnector.isConnected = true;
+        nextCell.selectedConnector.isConnected = true;
         toConnector.SetParent(fromConnector);
         nextCell.cell.transform.SetParent(toConnector);
         toConnector.localPosition = Vector3.zero;
@@ -161,35 +177,48 @@ public class PlanGenerator : MonoBehaviour
 
     bool IsCollide()
     {
-        BoxCollider box = cellTo.cell.GetComponentInChildren<BoxCollider>();
-        if (box == null)
+        BoxCollider box = cellTo.cell.transform.Find("Collider").GetComponent<BoxCollider>();
+        
+        Debug.Log(box.size);
+        if (box != null)
         {
-            box = cellTo.cell.GetComponentInChildren<MeshRenderer>().AddComponent<BoxCollider>();
-            box.isTrigger = true;
-        }
-
-        Vector3 offset  = (cellTo.cell.transform.right * box.center.x) + (cellTo.cell.transform.up * box.center.y) + (cellTo.cell.transform.forward * box.center.z);
-        Vector3 halfExtents = box.bounds.extents;
-        List<Collider> hits = Physics
-            .OverlapBox(cellTo.cell.transform.position + offset, halfExtents, Quaternion.identity, LayerMask.GetMask("Cell")).ToList();
-        if (hits.Count > 0)
-        {
-            if (hits.Exists(x => x.transform.parent.transform != cellFrom.cell.transform && x.transform.parent.transform != cellTo.cell.transform))
+            Vector3 offset  = (cellTo.cell.transform.right * box.center.x) + (cellTo.cell.transform.up * box.center.y) + (cellTo.cell.transform.forward * box.center.z);
+            Vector3 halfExtents = box.bounds.extents;
+            List<Collider> hits = Physics
+                .OverlapBox(box.center, halfExtents, Quaternion.identity, LayerMask.GetMask("Cell")).ToList();
+            if (hits.Count > 0)
             {
-                DestroyImmediate(cellTo.cell);
+                Debug.Log(hits.Count);
+                foreach (var hit in hits)
+                {
+                    Debug.Log(hit.transform.parent.name);
+                }
+                if (hits.Exists(x => x.transform.parent.position != cellFrom.cell.transform.position && x.transform.parent.position != cellTo.cell.transform.position))
+                {
+                    cellFrom.selectedConnector.isConnected = false;
+                    cellTo.selectedConnector.isConnected = false;
+                    DestroyImmediate(cellTo.cell);
                 
-                cellTo = null;
-                return true;
+                    cellTo = null;
+                    return true;
+                }
+                else
+                {
+                
+                    cells.Add(cellTo);
+                    Debug.Log("Added 01");
+                    return false;
+                }
+            
             }
             else
             {
-                cellFrom.selectedConnector.isConnected = true;
-                cellTo.selectedConnector.isConnected = true;
                 cells.Add(cellTo);
+                Debug.Log("Added 02");
                 return false;
             }
-            
         }
+        
         return false;
     }
     
